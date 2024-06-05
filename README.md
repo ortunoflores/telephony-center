@@ -25,6 +25,10 @@ also if the agent doesn't answer the call or is busy with the call It triggers t
 ## Demo
 [demoTelephony-small.mp4](public/demoTelephony-small.mp4)
 
+https://github.com/ortunoflores/telephony-center/assets/66982703/5ced7455-146d-47dc-bf00-599e5f3986aa
+
+
+
 ## Prerequisits
 
 Before cloning/forking this project, make sure you have the following tools installed:
