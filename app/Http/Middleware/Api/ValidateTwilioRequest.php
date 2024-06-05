@@ -20,15 +20,16 @@ class ValidateTwilioRequest
 
         $requestData = [];
         if ($request->method() === 'POST') {
-            $requestData = $request->toArray();
+            $requestData = $request->post();
         }
         if (!empty($requestData['bodySHA256'])) {
             $requestData = $request->getContent();
         }
 
-        $header = $request->header(self::TWILIO_HEADER_NAME, '');
-
-        $isValid = $requestValidator->validate($header, $request->fullUrl(), $requestData);
+        $header  = $request->header(self::TWILIO_HEADER_NAME, '');
+        // Replacing the http for https due ngrok bug on calling actions on webhook
+        $isValid = $requestValidator->validate($header, str_replace("http:", "https:", $request->fullUrl()),
+            $requestData);
 
         if (!$isValid) {
             return Response::noContent(HttpResponse::HTTP_FORBIDDEN);

@@ -1,64 +1,106 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Description
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-## About Laravel
+This project is a simplified VoIP phone application that works with Laravel and Twilio.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Laravel Version 8.1.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Twilio sdk Version 6.44.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The project follows the next structure:
+![telephony-diagram.png](public/telephony-diagram.png)
 
-## Learning Laravel
+The idea as described on the diagram is to allow The caller to choose between 2 options :
+1.- Call the Agent.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2.- Leave a Voicemail to the agent.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+If the user selects option 1, the endpoint will retrieve the TwiML for a call.
 
-## Laravel Sponsors
+If the user selects option 2, the endpoint will retrieve the TwiML for a voicemail.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+The VoiceMail allows Twilio to record a message, and later on, it sends an SMS to the agent number with a link to listen to the recorded message.
+also if the agent doesn't answer the call or is busy with the call It triggers the scenario of executing the voicemail to the caller to allow to record a message to be delivered by SMS to the agent number.
+## Demo
+[demoTelephony-small.mp4](public/demoTelephony-small.mp4)
 
-### Premium Partners
+## Prerequisits
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Before cloning/forking this project, make sure you have the following tools installed:
 
-## Contributing
+- [Git](https://git-scm.com/downloads)
+- [PHP 8.2](https://www.php.net/downloads.php)
+- [Laravel Valet](https://laravel.com/docs/11.x/valet)
+- [Composer](https://getcomposer.org/) installed globally
+- [Twilio account](https://www.twilio.com/try-twilio) you can sign up for a free trial account
+- 3 phone numbers:
+  - A Twilio phone number
+  - A phone number to call the application
+  - A phone number to act as the call center agent
+- [Ngrok](https://ngrok.com/)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+## Installation
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. Fork the project
+2. Clone the project
+3. Set the required environment variables on the .env
+```
+   TWILIO_ACCOUNT_SID=<<your_twilio_account_sid>>
+   TWILIO_AUTH_TOKEN=<<your_twilio_account_auth_token>>
+```
 
-## Security Vulnerabilities
+4. Install dependencies with composer
+```
+  composer install
+```
+5. Link and start the project with Laravel Valet
+```
+  valet start
+```
+this will create the project with his own domain.test, example: http://telephony-center.test 
+6. Make the project publicly available on the internet
+    With Valet we already have linked the funcionality of ngrok, it give us the option of execute the command on this way
+```
+cd projectName
+valet share
+```
+After running that it will automatically generate the new ngrok link to be used on Twilio
+![ngrok.png](public/ngrok.png)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+If there is some problem with Ngrok this [Tutorial](https://laraveldev.pro/blog/3) is a good place to start. Also, check out the official [Documentation](https://ngrok.com/docs/getting-started/).
 
-## License
+7. Configure the Twilio phone number
+   First navigate to Phone **Numbers > Manage > Active Numbers**
+   Click on the number you want to use. Then, in the Voice Configuration section:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+   - Change the dropdown value of "A Call Comes In" to "Webhook"
+   - Set your Ngrok Forwarding URL as the value of the "URL" field;
+   - Ensure that the "HTTP" dropdown is set to "POST";
+   - Click "Save configuration" at the bottom of the page
+![twiloPhoneConfig.png](public/twiloPhoneConfig.png)
+8. Test the Application
+    Call the number of Twilio, and interact with the options provided on the flow.
+
+
+## Endpoints Documentation
+There is a postman collection with the 4 endpoints created on this project:
+```
+ POST  {{base_url}}/api/call/incoming
+ POST  {{base_url}}/api/call/keypress
+ POST  {{base_url}}/api/call/voicemail
+ POST  {{base_url}}/api/call/no-answer
+```
+ You can find the detailed documentation here ->
+
+[Awesome Endpoints/Postman Documentation](https://documenter.getpostman.com/view/28499739/2sA3QzZ7sM#d0c68681-773f-4e29-a535-d1bffa137bf9)
+
+
+## Testing
+The routes, the validator, and the referred to the endpoints funcionality is being tested, you can run
+```
+ php artisan test
+```
+
+To see all the suit of tests run with no errors.
