@@ -1,7 +1,5 @@
 # Description
 
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
 This project is a simplified VoIP phone application that works with Laravel and Twilio.
 
 Laravel Version 8.1.
