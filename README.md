@@ -14,14 +14,13 @@ The idea as described on the diagram is to allow The caller to choose between 2 
 
 2.- Leave a Voicemail to the agent.
 
-If the user selects option 1, the endpoint will retrieve the TwiML for a call.
+- If the user selects option 1, the endpoint will retrieve the TwiML for a call.
 
-If the user selects option 2, the endpoint will retrieve the TwiML for a voicemail.
+- If the user selects option 2, the endpoint will retrieve the TwiML for a voicemail.
 
 The VoiceMail allows Twilio to record a message, and later on, it sends an SMS to the agent number with a link to listen to the recorded message.
 also if the agent doesn't answer the call or is busy with the call It triggers the scenario of executing the voicemail to the caller to allow to record a message to be delivered by SMS to the agent number.
 ## Demo
-[demoTelephony-small.mp4](public/demoTelephony-small.mp4)
 
 https://github.com/ortunoflores/telephony-center/assets/66982703/5ced7455-146d-47dc-bf00-599e5f3986aa
 
@@ -61,7 +60,8 @@ Before cloning/forking this project, make sure you have the following tools inst
 ```
   valet start
 ```
-this will create the project with his own domain.test, example: http://telephony-center.test 
+this will create the project with his own domain.test, example: http://telephony-center.test
+
 6. Make the project publicly available on the internet
     With Valet we already have linked the funcionality of ngrok, it give us the option of execute the command on this way
 ```
@@ -86,17 +86,16 @@ If there is some problem with Ngrok this [Tutorial](https://laraveldev.pro/blog/
     Call the number of Twilio, and interact with the options provided on the flow.
 
 
+
 ## Endpoints Documentation
-There is a postman collection with the 4 endpoints created on this project:
+There is a postman collection with the endpoints created on this project:
 ```
  POST  {{base_url}}/api/call/incoming
  POST  {{base_url}}/api/call/keypress
  POST  {{base_url}}/api/call/voicemail
  POST  {{base_url}}/api/call/no-answer
 ```
- You can find the detailed documentation here ->
-
-[Awesome Endpoints/Postman Documentation](https://documenter.getpostman.com/view/28499739/2sA3QzZ7sM#d0c68681-773f-4e29-a535-d1bffa137bf9)
+ You can find the detailed documentation here -> [Awesome Endpoints/Postman Documentation](https://documenter.getpostman.com/view/28499739/2sA3QzZ7sM#d0c68681-773f-4e29-a535-d1bffa137bf9)
 
 
 ## Testing
