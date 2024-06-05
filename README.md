@@ -7,9 +7,11 @@ Laravel Version 8.1.
 Twilio sdk Version 6.44.
 
 The project follows the next structure:
+
 ![telephony-diagram.png](public/telephony-diagram.png)
 
 The idea as described on the diagram is to allow The caller to choose between 2 options :
+
 1.- Call the Agent.
 
 2.- Leave a Voicemail to the agent.
@@ -78,8 +80,8 @@ If there is some problem with Ngrok this [Tutorial](https://laraveldev.pro/blog/
    Click on the number you want to use. Then, in the Voice Configuration section:
 
    - Change the dropdown value of "A Call Comes In" to "Webhook"
-   - Set your Ngrok Forwarding URL as the value of the "URL" field;
-   - Ensure that the "HTTP" dropdown is set to "POST";
+   - Set your Ngrok Forwarding URL as the value of the "URL" field
+   - Ensure that the "HTTP" dropdown is set to "POST"
    - Click "Save configuration" at the bottom of the page
 ![twiloPhoneConfig.png](public/twiloPhoneConfig.png)
 8. Test the Application
